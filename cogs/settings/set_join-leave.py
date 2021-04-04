@@ -18,7 +18,7 @@ class SetGeneral(commands.Cog):
     @commands.command(
         name="setwelcomechannel", 
         aliases=["swc"],
-        description="Sets up the channel where welcome messages will be sent.",
+        help="Sets up the channel where welcome messages will be sent.",
     )
     async def setwelcomechannel(
         self, 
