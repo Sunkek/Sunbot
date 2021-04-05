@@ -1,4 +1,4 @@
-"""Helper functions to address the stats REST API"""
+"""Helper functions to address the settings REST API"""
 
 import os
 
