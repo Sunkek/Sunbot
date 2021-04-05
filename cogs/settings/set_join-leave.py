@@ -5,6 +5,7 @@ from discord.ext import commands
 from typing import Optional
 
 from utils import settings
+from output import done
 
 
 class SetGeneral(commands.Cog):
@@ -31,6 +32,8 @@ class SetGeneral(commands.Cog):
             guild_id=ctx.guild.id,
             welcome_channel_id=channel.id if channel else channel
         )
+        # TODO add check for the above
+        await done(ctx)
 
 def setup(bot):
     bot.add_cog(SetGeneral(bot))
