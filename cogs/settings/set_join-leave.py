@@ -30,7 +30,7 @@ class SetGeneral(commands.Cog):
             self.bot, 
             guild_id=ctx.guild.id,
             welcome_channel_id=channel.id if channel else channel
-        )         
+        )
 
 def setup(bot):
     bot.add_cog(SetGeneral(bot))
