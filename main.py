@@ -7,7 +7,6 @@ from discord.ext import commands
 
 import aiohttp
 import socket
-import asyncio
 import os
 from random import choice, seed
 from datetime import datetime
