@@ -13,13 +13,6 @@ from datetime import datetime
 
 from utils import output
 
-ERROR_TITLES = (
-    "No", "Nope", "I don't think so", "Not gonna happen", "Nah", "Not likely", 
-    "Fat chance", "Fuck you", "Good try, asshole", "No way", 
-    "Did you really think I would do that?", "Do this shit yourself",
-    "I am not your bitch", "You didn't ask nice enough", "Not doing that"
-)  
-
 cogs = []
 for (dirpath, dirnames, filenames) in os.walk(f"{os.getcwd()}/cogs/"):
     if "__pycache__" not in dirpath:
@@ -69,13 +62,7 @@ async def on_message(message):
 @bot.event 
 async def on_command_error(ctx, error):
     """Command error handler"""
-    seed()
-    await output.respond(
-        ctx, 
-        t=choice(ERROR_TITLES),
-        d=str(error),
-        c=discord.Color(0xff7f7f),
-    )
+    await output.not_done(ctx, error)
 
 @commands.check(commands.is_owner())
 @bot.command(description=f"`reload <cog name>` - reloads the specified cog")
