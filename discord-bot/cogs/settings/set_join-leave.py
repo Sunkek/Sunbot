@@ -5,7 +5,7 @@ from discord.ext import commands
 from typing import Optional
 
 from utils import settings
-from output import done
+from utils.output import done
 
 
 class SetGeneral(commands.Cog):
