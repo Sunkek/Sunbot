@@ -1,8 +1,7 @@
 version: '3'
 
 services:
-      
-    discord-bot:
+  discord-bot:
     build:
       context: discord-bot/
       dockerfile: Dockerfile
