@@ -24,7 +24,7 @@ for (dirpath, dirnames, filenames) in os.walk(f"{os.getcwd()}/cogs/"):
         ]
 
 bot = commands.Bot(
-    command_prefix=commands.when_mentioned_or("sbt ", "SBT ", "Sbt "), 
+    command_prefix=commands.when_mentioned_or("sb ", "SB ", "Sb "), 
     сase_insensitive=True,
 )
 bot.remove_command("help")  # Remove the default help command because there will be a custom one
