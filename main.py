@@ -35,12 +35,12 @@ bot = commands.Bot(
     сase_insensitive=True,
 )
 bot.remove_command("help")  # Remove the default help command because there will be a custom one
-bot.web = None
+bot.web_client = None
         
 @bot.event
 async def on_ready():
-    if not bot.web:
-        bot.web = aiohttp.ClientSession(
+    if not bot.web_client:
+        bot.web_client = aiohttp.ClientSession(
             loop=bot.loop,
             connector=aiohttp.TCPConnector( 
                 family=socket.AF_INET,  # https://github.com/aio-libs/aiohttp/issues/2522#issuecomment-354454800
