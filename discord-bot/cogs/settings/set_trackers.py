@@ -15,9 +15,10 @@ class SetTrackers(commands.Cog):
         name="track", 
         aliases=["tr"],
         help="Command group for tracking your data",
+        invoke_without_command=True
     )
     async def set_track(self, ctx):
-        await respond(ctx, "Command group root!")
+        await respond(ctx, "Command group root!") # TODO return help
 
     @set_track.command(
         name="messages", 
