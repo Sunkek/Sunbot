@@ -1,8 +1,8 @@
 from flask import Flask
 from flask_restful import Resource, Api
 
-from models import db
-from marsh import ma, MessageSchema
+#from models import db
+#from marsh import ma, MessageSchema
 
 POSTGRES_URI = (
     f"postgresql://{os.environ.get('POSTGRES_USER', 'postgres')}:"
@@ -15,11 +15,43 @@ POSTGRES_URI = (
 app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = POSTGRES_URI
 api = Api(app)
-db.create_all()
-db.init_app(app)
-ma.init_app(app)
+db = SQLAlchemy(app)
+ma = Marshmallow(app)
 
+## DATABASE MODELS ##
+
+
+class Message(db.Model):
+    id = db.Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    guild_id = db.Column(db.BigInteger)
+    channel_id = db.Column(db.BigInteger)
+    message_id = db.Column(db.BigInteger)
+
+    __table_args__ = (
+        db.UniqueConstraint("guild_id", "channel_id", "message_id", name='message_url_uc'),
+    )
+    
+    def __repr__(self):
+        return f"<RR embed {self.guild_id}/{self.channel_id}/{self.message_id}>"
+
+
+## MARSHMALLOW SCHEMAS ##
+
+
+class MessageSchema(ma.SQLAlchemySchema):
+    class Meta:
+        model = Message
+
+    id = ma.auto_field()
+    guild_id = ma.auto_field()
+    channel_id = ma.auto_field()
+    message_id = ma.auto_field()
+
+
+db.create_all()
 message_schema = MessageSchema()
+
+## API ENDPOINTS ##
 
 
 class ReactionRoleMessage(Resource):
