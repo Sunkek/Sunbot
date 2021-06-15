@@ -34,23 +34,24 @@ class ReactionRoles(commands.Cog):
         help="Creates new reaction roles message. You can specify a channel to send a new message or provide a message link. The bot will edit its own reaction roles message with the roles it assigns.", 
     )
     async def new_reaction_roles(self, ctx, message_url: typing.Union[discord.TextChannel, str]):
-        print(message_url)
         if isinstance(message_url, discord.TextChannel):
             message = await message_url.send(embed=self.new_rr)
-            message_url = message.jump_url
+            res = await reaction_roles.new_reaction_roles(
+                self.bot, ctx.author.id, ctx.guild.id, message_url.id, message.id
+            )
         else:
             m = re.search(re_url_pattern, message_url)
             if m is None:
                 raise ValueError("Invalid message URL")
             guild = self.bot.get_guild(int(m.group(1)))
-            channel = guild.get_guild(int(m.group(2)))
+            channel = guild.get_channel(int(m.group(2)))
             message = await channel.fetch_message(int(m.group(3)))
             if message.author == ctx.guild.me:
                 if not message.embeds:
                     await message.edit(embed=self.new_rr)       
-        res = await reaction_roles.new_reaction_roles(
-            self.bot, ctx.author.id, message_url
-        )
+            res = await reaction_roles.new_reaction_roles(
+                self.bot, ctx.author.id, guild.id, channel.id, message.id
+            )
         print(res.__dict__) # TODO work with res
         await ok(ctx)
 

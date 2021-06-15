@@ -10,11 +10,15 @@ URLS = {
     "reaction_roles_message":f"{HOST}/api/v1/message/",
 }
 
-async def new_reaction_roles(bot, user_id, message_link):
+async def new_reaction_roles(bot, user_id, guild_id, channel_id, message_id):
     """Create new reaction roles message"""
     return await bot.web_client.post(
         f"{URLS['reaction_roles_message']}", 
         headers={"Invoker": user_id},
-        json={"message_link": message_link},
+        json={
+            "guild_id": guild_id, 
+            "channel_id": channel_id, 
+            "message_id": message_id,
+        },
     )
     
