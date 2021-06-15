@@ -2,6 +2,7 @@
 
 import typing
 import re
+from asyncio import TimeoutError
 
 import discord
 from discord.ext import commands
@@ -105,7 +106,7 @@ class ReactionRoles(commands.Cog):
 
         try:
             await self.bot.wait_for("message", timeout=30.0, check=await check)
-        except asyncio.TimeoutError:
+        except TimeoutError:
             pass
         await output.done(ctx)
 
