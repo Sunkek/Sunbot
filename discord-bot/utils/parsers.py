@@ -14,12 +14,11 @@ def parse_switch_opt(text):
         return False
     raise ValueError("Can't parse argument. Expected None, True or False")
 
-def parse_reaction_role_pair(text, ctx):
+async def parse_reaction_role_pair(text, ctx):
     emote, role = text.split()
-    
     if emote in UNICODE_EMOJI:
         emote = str(bytes(str(emote), "utf-8")[:4], "utf-8")[0]  # Stripping skintones and other modifiers
     else: 
         emote = re.sub(emote_re, "_", emote)  # Wiping emote name to make it compact
-
     role = await RoleConverter.convert(ctx, role)
+    return emote, role

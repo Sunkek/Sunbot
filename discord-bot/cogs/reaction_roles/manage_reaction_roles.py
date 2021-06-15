@@ -11,7 +11,7 @@ from utils import output, reaction_roles, parsers
 re_url_pattern = "([0-9]+)\/([0-9]+)\/([0-9]+)"
 
 async def add_reaction_role(bot, ctx, input_message, rr_message):
-    emote, role = parsers.parse_reaction_role_pair(input_message.content, ctx)
+    emote, role = await parsers.parse_reaction_role_pair(input_message.content, ctx)
     res = await reaction_roles.new_reaction_role(
         self.bot, ctx.author.id, emote, role.id, rr_message.id,
     )
