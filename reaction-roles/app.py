@@ -1,7 +1,7 @@
 import os
 import uuid
 
-from flask import Flask
+from flask import Flask, request
 from flask_restful import Resource, Api
 from flask_marshmallow import Marshmallow
 from flask_sqlalchemy import SQLAlchemy
