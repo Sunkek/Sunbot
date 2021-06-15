@@ -8,6 +8,7 @@ HOST = (
 )
 URLS = {
     "reaction_roles_message":f"{HOST}/api/v1/message/",
+    "reaction_roles_pair":f"{HOST}/api/v1/reaction_role/",
 }
 
 async def new_reaction_roles(bot, user_id, guild_id, channel_id, message_id):
@@ -18,6 +19,18 @@ async def new_reaction_roles(bot, user_id, guild_id, channel_id, message_id):
         json={
             "guild_id": guild_id, 
             "channel_id": channel_id, 
+            "message_id": message_id,
+        },
+    )
+
+async def add_reaction_role(bot, user_id, emote, role_id, message_id):
+    """Add a reaction role pair to the message"""
+    return await bot.web_client.post(
+        f"{URLS['reaction_roles_pair']}", 
+        headers={"Invoker": str(user_id)},
+        json={
+            "emote": emote,
+            "role_id": role_id,
             "message_id": message_id,
         },
     )
