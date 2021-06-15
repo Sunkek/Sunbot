@@ -1,4 +1,4 @@
-"""Setting util for uncategorizable things"""
+"""Setting util for join and leave features"""
 
 import discord
 from discord.ext import commands
@@ -8,7 +8,7 @@ from utils import settings
 from utils.output import done
 
 
-class SetGeneral(commands.Cog):
+class SetWelcome(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
@@ -36,4 +36,4 @@ class SetGeneral(commands.Cog):
         await done(ctx)
 
 def setup(bot):
-    bot.add_cog(SetGeneral(bot))
+    bot.add_cog(SetWelcome(bot))
