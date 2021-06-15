@@ -4,10 +4,10 @@ import os
 
 HOST = (
     f"http://{os.environ.get('REACTION_ROLES_HOST', 'localhost')}:"
-    f":{os.environ.get('REACTION_ROLES_PORT', '8000')}"
+    f"{os.environ.get('REACTION_ROLES_PORT', '8000')}"
 )
 URLS = {
-    "reaction_roles_message":f"{HOST}/api/v1/reaction_roles/",
+    "reaction_roles_message":f"{HOST}/api/v1/message/",
 }
 
 async def new_reaction_roles(bot, user_id, message_link):
