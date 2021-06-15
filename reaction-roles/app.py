@@ -71,9 +71,16 @@ class ReactionRoleMessage(Resource):
             print(data)
         except ValidationError as err:
             return err.messages, 422
-        db.session.add(data)
+        message = Message()
+        message.guild_id = data["guild_id"]
+        message.channel_id = data["channel_id"]
+        message.message_id = data["message_id"]
+        print(message.id)
+        db.session.add(message)
         db.session.commit()
-        return message_schema.dump(data)
+        print(message.id)
+        result = message_schema.dump(Message.query.get(message.id))
+        return message_schema.dump("message": "Reaction roles message created", "data": result)
 
 
 api.add_resource(ReactionRoleMessage, '/api/v1/message/')
