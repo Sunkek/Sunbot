@@ -105,7 +105,7 @@ class ReactionRoles(commands.Cog):
             return commands.check(predicate)
 
         try:
-            await self.bot.wait_for("message", timeout=30.0, check=await check)
+            await self.bot.wait_for("message", timeout=30.0, check=check)
         except TimeoutError:
             pass
         await output.done(ctx)
