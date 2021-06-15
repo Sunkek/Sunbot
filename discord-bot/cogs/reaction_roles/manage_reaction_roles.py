@@ -36,7 +36,7 @@ class ReactionRoles(commands.Cog):
     async def new_reaction_roles(self, ctx, message_url: typing.Union[discord.TextChannel, str]):
         print(message_url)
         if isinstance(message_url, discord.TextChannel):
-            message_url = await message.send(embed=self.new_rr)
+            message = await message_url.send(embed=self.new_rr)
             message_url = message.jump_url
         else:
             m = re.search(re_url_pattern, message_url)
