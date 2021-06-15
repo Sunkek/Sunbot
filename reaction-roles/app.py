@@ -58,10 +58,9 @@ class MessageSchema(ma.SQLAlchemySchema):
     class Meta:
         model = Message
 
-    id = ma.auto_field()
+    message_id = ma.auto_field()
     guild_id = ma.auto_field()
     channel_id = ma.auto_field()
-    message_id = ma.auto_field()
 
 
 class ReactionRoleSchema(ma.SQLAlchemySchema):
