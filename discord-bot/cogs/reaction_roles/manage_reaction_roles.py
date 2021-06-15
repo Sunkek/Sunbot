@@ -33,7 +33,7 @@ class ReactionRoles(commands.Cog):
         aliases=["n"],
         help="Creates new reaction roles message. You can specify a channel to send a new message or provide a message link. The bot will edit its own reaction roles message with the roles it assigns.", 
     )
-    async def new_reaction_roles(self, ctx, message_url: typing.Union[discord.TextChannel, string]):
+    async def new_reaction_roles(self, ctx, message_url: typing.Union[discord.TextChannel, str]):
         print(message_url)
         if isinstance(message_url, discord.TextChannel):
             message_url = await message.send(embed=self.new_rr)

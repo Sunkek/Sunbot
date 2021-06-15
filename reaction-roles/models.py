@@ -12,7 +12,7 @@ class Message(db.Model):
     message_id = db.Column(db.BigInteger)
 
     __table_args__ = (
-        UniqueConstraint("guild_id", "channel_id", "message_id", name='message_url_uc'),
+        db.UniqueConstraint("guild_id", "channel_id", "message_id", name='message_url_uc'),
     )
     
     def __repr__(self):
