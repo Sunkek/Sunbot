@@ -75,7 +75,7 @@ class ReactionRoles(commands.Cog):
         print(res.__dict__) # TODO work with res
         await output.ok(ctx)
 
-    @add_reaction_roles.command(
+    @manage_reaction_roles.command(
         name="add", 
         aliases=["a"],
         help="Adds new reaction roles to the set message. If it's this bot's message, then it will also list the emote - role pairs", 
