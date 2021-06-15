@@ -80,7 +80,7 @@ class ReactionRoleMessage(Resource):
         db.session.commit()
         print(message.id)
         result = message_schema.dump(Message.query.get(message.id))
-        return message_schema.dump("message": "Reaction roles message created", "data": result)
+        return {"message": "Reaction roles message created", "data": result}
 
 
 api.add_resource(ReactionRoleMessage, '/api/v1/message/')
