@@ -67,7 +67,8 @@ class ReactionRoleMessage(Resource):
             return {"message": "No input data provided"}, 400
         try:
             print(json_data)
-            data = message_schema.load(json_data)
+            data = message_schema.load(json_data, session=db.session)
+            print(data)
         except ValidationError as err:
             return err.messages, 422
         db.session.add(data)
