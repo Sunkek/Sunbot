@@ -8,14 +8,14 @@ services:
     volumes:
       - sb-postgres:/var/lib/postgresql/data
 
-  reation-roles:
+  reaction-roles:
     build:
-      context: reation-roles/
+      context: reaction-roles/
       dockerfile: Dockerfile
     expose:
       - 5000
     env_file:
-      - reation-roles.env
+      - reaction-roles.env
 
 
   discord-bot:
