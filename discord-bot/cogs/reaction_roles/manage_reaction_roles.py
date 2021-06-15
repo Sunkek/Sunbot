@@ -88,6 +88,7 @@ class ReactionRoles(commands.Cog):
         channel = guild.get_channel(int(m.group(2)))
         message = await channel.fetch_message(int(m.group(3)))
         await output.respond(
+            ctx,
             t="Add reaction roles", 
             d="Send an emote and ping the role you want to add, like `emote @role` or `emote role_id`. Send `done` when done", 
             c=ctx.author.color
