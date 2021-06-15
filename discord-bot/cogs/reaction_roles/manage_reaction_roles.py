@@ -53,7 +53,7 @@ class ReactionRoles(commands.Cog):
                 self.bot, ctx.author.id, guild.id, channel.id, message.id
             )
         print(res.__dict__) # TODO work with res
-        await ok(ctx)
+        await output.ok(ctx)
 
 
 def setup(bot):

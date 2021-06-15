@@ -41,3 +41,6 @@ async def not_done(ctx, error=None):
 
 async def ok(ctx):
     await ctx.message.add_reaction("👌")
+    
+async def not_ok(ctx):
+    await ctx.message.add_reaction("✋")
