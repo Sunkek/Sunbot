@@ -40,7 +40,7 @@ class ReactionRole(db.Model):
     id = db.Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     emote = db.Column(db.String)
     role_id = db.Column(db.BigInteger)
-    message_id = db.Column(db.BigInteger, db.ForeignKey("message.id"))
+    message_id = db.Column(db.BigInteger, db.ForeignKey("message.message_id"))
     message = db.relationship("Message", backref="reaction_roles")
 
     __table_args__ = (
@@ -94,11 +94,11 @@ class ReactionRoleMessage(Resource):
         message.guild_id = data["guild_id"]
         message.channel_id = data["channel_id"]
         message.message_id = data["message_id"]
-        print(message.id)
+        print(message.message_id)
         db.session.add(message)
         db.session.commit()
-        print(message.id)
-        result = message_schema.dump(Message.query.get(message.id))
+        print(message.message_id)
+        result = message_schema.dump(Message.query.get(message.message_id))
         return {"message": "Reaction roles message created", "data": result}
 
 

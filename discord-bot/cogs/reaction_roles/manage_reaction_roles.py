@@ -92,17 +92,18 @@ class ReactionRoles(commands.Cog):
             d="Send an emote and ping the role you want to add, like `emote @role` or `emote role_id`. Send `done` when done", 
             c=ctx.author.color
         )
-
-        def check(m):
-            if m.author == ctx.author and m.channel == ctx.channel and m.content.lower() == "done":
-                return True
-            elif m.author == ctx.author and m.channel == ctx.channel:
-                await add_reaction_role(
-                    self.bot, ctx, m, guild, channel, message
-                )
+        def check():
+            async def predicate(m):
+                if m.author == ctx.author and m.channel == ctx.channel and m.content.lower() == "done":
+                    return True
+                elif m.author == ctx.author and m.channel == ctx.channel:
+                    await add_reaction_role(
+                        self.bot, ctx, m, guild, channel, message
+                    )
+            return commands.check(predicate)
 
         try:
-            await self.bot.wait_for("message", timeout=30.0, check=check)
+            await self.bot.wait_for("message", timeout=30.0, check=await check)
         except asyncio.TimeoutError:
             pass
         await output.done(ctx)
