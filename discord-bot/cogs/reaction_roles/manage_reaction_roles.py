@@ -3,6 +3,7 @@
 import typing
 import re
 
+import discord
 from discord.ext import commands
 
 from utils import output, reaction_roles
