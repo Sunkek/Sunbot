@@ -74,7 +74,7 @@ class ReactionRoleMessage(Resource):
         return message_schema.dump(data)
 
 
-api.add_resource(ReactionRoleMessage, 'message/')
+api.add_resource(ReactionRoleMessage, '/message/')
 
 
 if __name__ == '__main__':
