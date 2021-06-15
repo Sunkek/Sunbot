@@ -20,6 +20,7 @@ POSTGRES_URI = (
 
 app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = POSTGRES_URI
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 api = Api(app)
 db = SQLAlchemy(app)
 ma = Marshmallow(app)
