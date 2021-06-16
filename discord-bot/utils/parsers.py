@@ -27,8 +27,10 @@ async def parse_message_url(text, bot):
 async def parse_reaction_role_pair(text, ctx):
     emote, role = text.split()
     if emote in UNICODE_EMOJI:
+        print("UNICODE")
         emote = str(bytes(str(emote), "utf-8")[:4], "utf-8")[0]  # Stripping skintones and other modifiers
     else: 
+        print("NOT UNICODE")
         name = re.search(RE_EMOTE_NAME, emote)
         emote = re.sub(name.group(1), "_", emote)  # Wiping emote name to make it compact
     role = await RoleConverter().convert(ctx, role)
