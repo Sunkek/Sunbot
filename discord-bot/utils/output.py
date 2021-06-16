@@ -25,10 +25,10 @@ async def respond(msg: Union[Context, Message], txt=None, t=MT, d=MT, c=None):
         return await msg.reply(txt, embed=e, mention_author=False)
     return await msg.reply(txt, mention_author=False)
 
-async def done(ctx, text=None):
+async def done(msg: Union[Context, Message], text=None):
     seed()
     await respond(
-        ctx, 
+        msg, 
         t=choice(OK_TITLES),
         d=str(text) if text else MT,
         c=Color.green(),
@@ -44,9 +44,11 @@ async def not_done(msg: Union[Context, Message], error=None):
     )
 
 async def ok(msg: Union[Context, Message]):
-    if isinstance(ctx, Context):
-        msg = ctx.message
+    if isinstance(msg, Context):
+        msg = msg.message
     await msg.add_reaction("👌")
     
-async def not_ok(ctx):
-    await ctx.message.add_reaction("✋")
+async def not_ok(msg: Union[Context, Message]):
+    if isinstance(msg, Context):
+        msg = msg.message
+    await msg.message.add_reaction("✋")

@@ -62,6 +62,7 @@ async def on_message(message):
 @bot.event 
 async def on_command_error(ctx, error):
     """Command error handler"""
+    print(error)
     await output.not_done(ctx, error)
 
 @commands.check(commands.is_owner())
