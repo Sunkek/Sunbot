@@ -25,12 +25,13 @@ async def respond(msg: Union[Context, Message], txt=None, t=MT, d=MT, c=None):
         return await msg.reply(txt, embed=e, mention_author=False)
     return await msg.reply(txt, mention_author=False)
 
-async def done(ctx):
+async def done(ctx, text=None):
     seed()
     await respond(
         ctx, 
         t=choice(OK_TITLES),
-        c=Color(0x80ff80),
+        d=str(text) if text else MT,
+        c=Color.green(),
     )
 
 async def not_done(msg: Union[Context, Message], error=None):
@@ -39,7 +40,7 @@ async def not_done(msg: Union[Context, Message], error=None):
         msg, 
         t=choice(ERROR_TITLES),
         d=str(error) if error else MT,
-        c=Color(0xff7f7f),
+        c=Color.red(),
     )
 
 async def ok(msg: Union[Context, Message]):
