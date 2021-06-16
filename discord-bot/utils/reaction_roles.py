@@ -23,6 +23,16 @@ async def new_reaction_roles_message(bot, user_id, guild_id, channel_id, message
         },
     )
 
+async def check_reaction_roles_message(bot, user_id, message_id):
+    """Create new reaction roles message"""
+    return await bot.web_client.get(
+        f"{URLS['reaction_roles_message']}", 
+        headers={"Invoker": str(user_id)},
+        json={
+            "message_id": message_id,
+        },
+    )
+
 async def add_reaction_role(bot, user_id, emote, role_id, message_id):
     """Add a reaction role pair to the message"""
     return await bot.web_client.post(

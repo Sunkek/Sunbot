@@ -35,7 +35,7 @@ class ReactionRoles(commands.Cog):
     @manage_reaction_roles.command(
         name="add", 
         aliases=["a"],
-        help="Creates new reaction roles message. You can specify a channel to send a new message or provide a message link. The bot will edit its own reaction roles message with the roles it assigns.", 
+        help="Creates new reaction roles message. You can specify a channel to send a new message or provide a message link. The bot will edit its own reaction roles message with the roles it assigns", 
     )
     async def add_reaction_roles(
         self, ctx, message_url: typing.Union[TextChannel, str]=None
@@ -45,11 +45,11 @@ class ReactionRoles(commands.Cog):
         if isinstance(message_url, TextChannel):  # New embed if channel provided
             message = await message_url.send(embed=NEW_RR_EMBED)
         else:
-            guild, channel, message = await parsers.parse_message_url(
+            guild, _, message = await parsers.parse_message_url(
                 message_url, self.bot
             )
             if guild != ctx.guild:
-                raise ValueError("Must be a message from this server")
+                raise BadArgument("Must be a message from this server")
         res = await reaction_roles.new_reaction_roles_message(
             self.bot, ctx.author.id, ctx.guild.id, ctx.channel.id, message.id
         )
@@ -75,7 +75,7 @@ class ReactionRoles(commands.Cog):
                     break
                 emote, role = await parsers.parse_reaction_role_pair(
                     rr_pair_message.content, ctx
-                )                
+                )
                 res = await reaction_roles.add_reaction_role(
                     self.bot, ctx.author.id, emote, role.id, message.id,
                 )
@@ -101,8 +101,73 @@ class ReactionRoles(commands.Cog):
             except BadArgument as e:
                 await output.not_done(rr_pair_message, e)
 
+        await output.done(ctx)
+
+    @manage_reaction_roles.command(
+        name="remove", 
+        aliases=["rm"],
+        help="Removes reaction roles from the message by its URL. The bot will edit its own message", 
+    )
+    async def remove_reaction_roles(
+        self, ctx, message_url: typing.Union[TextChannel]
+    ):
+        guild, _, message = await parsers.parse_message_url(
+            message_url, self.bot
+        )
+        if guild != ctx.guild:
+            raise BadArgument("Must be a message from this server")
+        
+        res = await reaction_roles.check_reaction_roles_message(
+            self.bot, ctx.author.id, message.id
+        )
+        print(await res.json()) # TODO work with res
+
+        await output.respond(
+            ctx,
+            t="Remove reaction roles", 
+            d="Send an emote or a @role (or role ID) which you want to remove from the reaction roles message. Send `done` when done", 
+            c=Color.gold()
+        )
+
+        def check(m):
+            return m.author == ctx.author and m.channel == ctx.channel
+
+        done = False
+        while not done:            
+            try:
+                # Parse input
+                # Send a request to backend
+                # Parse the response
+                # If ok
+                # Delete reaction
+                # If message is by bot
+                # Edit it
+                pass
+
+            except TimeoutError:
+                done = True
+            except BadArgument as e:
+                await output.not_done(rr_pair_message, e)
 
         await output.done(ctx)
+
+    @manage_reaction_roles.command(
+        name="delete", 
+        aliases=["d"],
+        help="Deletes the reaction role message and its reaction roles by the message URL", 
+    )
+    async def delete_reaction_roles(
+        self, ctx, message_url: typing.Union[TextChannel]
+    ):
+        guild, channel, message = await parsers.parse_message_url(
+            message_url, self.bot
+        )
+        if guild != ctx.guild:
+            raise BadArgument("Must be a message from this server")
+        # Send a request to backend
+        # Parse the response
+        # If ok
+        # Delete message
 
 def setup(bot):
     bot.add_cog(ReactionRoles(bot))
