@@ -2,7 +2,7 @@ import re
 
 from emoji import UNICODE_EMOJI
 from discord.ext.commands import RoleConverter, PartialEmojiConverter, \
-    PartialEmojiConversionFailure
+    PartialEmojiConversionFailure, BadArgument
 
 RE_MESSAGE_URL = r"([0-9]+)\/([0-9]+)\/([0-9]+)"
 RE_EMOTE_NAME = r":([^:\s]*)(?:::[^:\s]*)*:"
@@ -26,7 +26,10 @@ async def parse_message_url(text, bot):
     return guild, channel, message
 
 async def parse_reaction_role_pair(text, ctx):
-    emote, role = text.split()
+    try:
+        emote, role = text.split()
+    except ValueError:
+        raise BadArgument("Must provide an emote and a role")
     try:
         emote = await PartialEmojiConverter().convert(ctx, emote)
         name = re.search(RE_EMOTE_NAME, str(emote))
