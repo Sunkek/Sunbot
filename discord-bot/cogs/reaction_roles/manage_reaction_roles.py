@@ -46,7 +46,7 @@ class ReactionRoles(commands.Cog):
             if guild != ctx.guild:
                 raise ValueError("Must be a message from this server")
         res = await reaction_roles.new_reaction_roles_message(
-            self.bot, ctx.author.id, guild.id, channel.id, message.id
+            self.bot, ctx.author.id, ctx.guild.id, ctx.channel.id, message.id
         )
         print(await res.json()) # TODO work with res
 
