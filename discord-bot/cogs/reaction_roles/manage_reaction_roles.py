@@ -6,6 +6,7 @@ from asyncio import TimeoutError
 
 from discord import Color, Embed, TextChannel
 from discord.ext import commands
+from discord.ext.commands import BadArgument
 
 from utils import output, reaction_roles, parsers
 
@@ -93,7 +94,7 @@ class ReactionRoles(commands.Cog):
 
             except TimeoutError:
                 done = True
-            except ValueError as e:
+            except BadArgument as e:
                 await output.not_done(rr_pair_message, e)
 
 
