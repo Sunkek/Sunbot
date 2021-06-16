@@ -95,20 +95,17 @@ class ReactionRoles(commands.Cog):
             c=ctx.author.color
         )
 
-        done = False
-        rr_pair_message = None
-
         def check(m):
-            global done, rr_pair_message
-            if m.author == ctx.author and m.channel == ctx.channel and m.content.lower() == "done":
-                done = True
-            elif m.author == ctx.author and m.channel == ctx.channel:
-                rr_pair_message = m
-            return True
+            return m.author == ctx.author and m.channel == ctx.channel
 
+        done = False
         while not done:
             try:
-                await self.bot.wait_for("message", timeout=30.0, check=check)
+                rr_pair_message = await self.bot.wait_for(
+                    "message", timeout=30.0, check=check
+                )
+                if rr_pair_message.content.lower() == "done":
+                    break
                 await add_reaction_role(
                     self.bot, ctx, rr_pair_message, message
                 )
