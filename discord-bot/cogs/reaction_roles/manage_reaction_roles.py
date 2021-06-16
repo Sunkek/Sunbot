@@ -68,7 +68,7 @@ class ReactionRoles(commands.Cog):
                 )
                 if rr_pair_message.content.lower() == "done":
                     break
-                emote, role = await parse_reaction_role_pair(
+                emote, role = await parsers.parse_reaction_role_pair(
                     rr_pair_message.content, ctx
                 )                
                 res = await reaction_roles.add_reaction_role(
