@@ -40,7 +40,9 @@ class ReactionRoles(commands.Cog):
         if isinstance(message_url, TextChannel):  # New embed if channel provided
             message = await message_url.send(embed=NEW_RR_EMBED)
         else:
-            guild, channel, message = parsers.parse_message_url(message_url, self.bot)
+            guild, channel, message = await parsers.parse_message_url(
+                message_url, self.bot
+            )
             if guild != ctx.guild:
                 raise ValueError("Must be a message from this server")
         res = await reaction_roles.new_reaction_roles_message(

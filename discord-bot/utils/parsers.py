@@ -15,7 +15,7 @@ def parse_switch_opt(text):
         return False
     raise ValueError("Can't parse argument. Expected None, True or False")
 
-def parse_message_url(text, bot):
+async def parse_message_url(text, bot):
     m = re.search(RE_MESSAGE_URL, text)
     if m is None:
         raise ValueError("Invalid message URL")
