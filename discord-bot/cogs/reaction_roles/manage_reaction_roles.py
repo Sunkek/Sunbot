@@ -95,12 +95,12 @@ class ReactionRoles(commands.Cog):
             c=ctx.author.color
         )
         def check():
-            async def predicate(m):
-                if m.author == ctx.author and m.channel == ctx.channel and m.content.lower() == "done":
+            async def predicate(p_ctx):
+                if p_ctx.author == ctx.author and p_ctx.channel == ctx.channel and p_ctx.message.content.lower() == "done":
                     return True
-                elif m.author == ctx.author and m.channel == ctx.channel:
+                elif p_ctx.author == ctx.author and p_ctx.channel == ctx.channel:
                     await add_reaction_role(
-                        self.bot, ctx, m, guild, channel, message
+                        self.bot, ctx, p_ctx.message, guild, channel, message
                     )
             return commands.check(predicate)
 
