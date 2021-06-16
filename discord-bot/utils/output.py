@@ -16,14 +16,14 @@ ERROR_TITLES = (
     "I am not your bitch", "You didn't ask nice enough", "Not doing that"
 )  
 
-async def respond(ctx, txt=None, t=MT, d=MT, c=None):
+async def respond(msg: Union[Context, Message], txt=None, t=MT, d=MT, c=None):
     """Send a response with provided text. Return the message object"""
-    c = c or ctx.author.color
+    c = c or msg.author.color
     if t != MT or d != MT:
         e = Embed(title=t, description=d)
         if c: e.color = c
-        return await ctx.reply(txt, embed=e, mention_author=False)
-    return await ctx.reply(txt, mention_author=False)
+        return await msg.reply(txt, embed=e, mention_author=False)
+    return await msg.reply(txt, mention_author=False)
 
 async def done(ctx):
     seed()
@@ -33,10 +33,10 @@ async def done(ctx):
         c=Color(0x80ff80),
     )
 
-async def not_done(ctx, error=None):
+async def not_done(msg: Union[Context, Message], error=None):
     seed()
     await respond(
-        ctx, 
+        msg, 
         t=choice(ERROR_TITLES),
         d=str(error) if error else MT,
         c=Color(0xff7f7f),

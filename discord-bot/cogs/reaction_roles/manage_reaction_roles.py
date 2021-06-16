@@ -113,7 +113,7 @@ class ReactionRoles(commands.Cog):
             except TimeoutError:
                 done = True
             except Exception as e:
-                await output.not_done(ctx, error=e)
+                await output.not_done(rr_pair_message, error=e)
 
         await output.done(ctx)
 
