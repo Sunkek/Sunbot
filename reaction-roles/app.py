@@ -6,9 +6,7 @@ from flask_restful import Resource, Api
 from flask_marshmallow import Marshmallow
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.dialects.postgresql import UUID
-
-#from models import db
-#from marsh import ma, MessageSchema
+from sqlalchemy.exc import IntegrityError
 
 POSTGRES_URI = (
     f"postgresql://{os.environ.get('POSTGRES_USER', 'postgres')}:"
@@ -94,10 +92,11 @@ class ReactionRoleMessage(Resource):
         message.guild_id = data["guild_id"]
         message.channel_id = data["channel_id"]
         message.message_id = data["message_id"]
-        print(message.message_id)
-        db.session.add(message)
-        db.session.commit()
-        print(message.message_id)
+        try:
+            db.session.add(message)
+            db.session.commit()
+        except IntegrityError as e:
+            return {"message": "This reaction role message already exists"}
         result = message_schema.dump(Message.query.get(message.message_id))
         return {"message": "Reaction roles message created", "data": result}
 
