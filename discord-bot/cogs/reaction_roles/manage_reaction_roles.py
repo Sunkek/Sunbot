@@ -30,7 +30,7 @@ async def add_reaction_role(bot, ctx, input_message, rr_message):
                 roles_field = num
         if roles_field == 0:
             new_embed.add_field(name="Roles", value="")
-        value = (new_embed.fields[roles_field] + f"\n{emote} {role.mention}").strip("\n")
+        value = (new_embed.fields[roles_field].value + f"\n{emote} {role.mention}").strip("\n")
         new_embed.set_field_at(roles_field, name="Roles", value=value)
         await rr_message.edit(embed=new_embed)
         await rr_message.add_reaction(emote)
