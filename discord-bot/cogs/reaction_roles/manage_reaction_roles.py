@@ -28,11 +28,10 @@ async def add_reaction_role(bot, ctx, input_message, rr_message):
         for num, field in enumerate(new_embed.fields):
             if field.name.lower() == "roles":
                 roles_field = num
-        value = (new_embed.fields[roles_field].value + f"\n{emote} {role.mention}").strip("\n")
+                value = field.value + f"\n{emote} {role.mention}"
+                new_embed.set_field_at(roles_field, name="Roles", value=value)
         if roles_field == -1:
-            new_embed.add_field(name="Roles", value=value)
-        else:
-            new_embed.set_field_at(roles_field, name="Roles", value=value)
+            new_embed.add_field(name="Roles", value=f"{emote} {role.mention}")
         await rr_message.edit(embed=new_embed)
         await rr_message.add_reaction(emote)
 
