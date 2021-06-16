@@ -1,7 +1,7 @@
 import re
 
 from emoji import UNICODE_EMOJI
-from discord.ext.commands import RoleConverter
+from discord.ext.commands import RoleConverter, PartialEmojiConverter
 
 RE_MESSAGE_URL = r"([0-9]+)\/([0-9]+)\/([0-9]+)"
 RE_EMOTE_NAME = r":([^:\s]*)(?:::[^:\s]*)*:"
@@ -26,11 +26,10 @@ async def parse_message_url(text, bot):
 
 async def parse_reaction_role_pair(text, ctx):
     emote, role = text.split()
-    if emote in UNICODE_EMOJI:
-        print("UNICODE")
+    emote = await PartialEmojiConverter().convert(ctx, emote)
+    if emote.is_unicode_emoji():
         emote = str(bytes(str(emote), "utf-8")[:4], "utf-8")[0]  # Stripping skintones and other modifiers
-    else: 
-        print("NOT UNICODE")
+    else:
         name = re.search(RE_EMOTE_NAME, emote)
         emote = re.sub(name.group(1), "_", emote)  # Wiping emote name to make it compact
     role = await RoleConverter().convert(ctx, role)
