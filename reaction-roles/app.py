@@ -115,10 +115,10 @@ class ReactionRole(Resource):
         reaction_role.emote = data["emote"]
         reaction_role.role_id = data["role_id"]
         reaction_role.message_id = data["message_id"]
-        print(reaction_role)
+        print(reaction_role.emote, reaction_role.role_id, reaction_role.message_id)
         db.session.add(reaction_role)
         db.session.commit()
-        print(reaction_role)
+        print(reaction_role.id)
         result = reaction_role_schema.dump(ReactionRole.query.get(reaction_role.id))
         return {"message": "Reaction role created", "data": result}
 

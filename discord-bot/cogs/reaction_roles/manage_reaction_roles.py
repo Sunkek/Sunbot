@@ -9,7 +9,7 @@ from discord.ext import commands
 
 from utils import output, reaction_roles, parsers
 
-re_url_pattern = "([0-9]+)\/([0-9]+)\/([0-9]+)"
+re_url_pattern = r"([0-9]+)\/([0-9]+)\/([0-9]+)"
 new_rr = discord.Embed(
     title="Reaction roles",
     description="Click on the reactions below to get the roles",
