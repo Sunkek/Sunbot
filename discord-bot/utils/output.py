@@ -1,5 +1,8 @@
-from discord import Embed, Color
+from typing import Union
 from random import choice, seed
+
+from discord import Embed, Color, Message
+from discord.ext.commands import Context
 
 MT = Embed.Empty
 OK_TITLES = (
@@ -39,8 +42,10 @@ async def not_done(ctx, error=None):
         c=Color(0xff7f7f),
     )
 
-async def ok(ctx):
-    await ctx.message.add_reaction("👌")
+async def ok(msg: Union[Context, Message]):
+    if isinstance(ctx, Context):
+        msg = ctx.message
+    await msg.add_reaction("👌")
     
 async def not_ok(ctx):
     await ctx.message.add_reaction("✋")
