@@ -142,7 +142,7 @@ class ReactionRoles(commands.Cog):
                 # Delete reaction
                 # If message is by bot
                 # Edit it
-                pass
+                break
 
             except TimeoutError:
                 done = True
