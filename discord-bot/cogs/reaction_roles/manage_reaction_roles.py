@@ -99,6 +99,7 @@ class ReactionRoles(commands.Cog):
         rr_pair_message = None
 
         def check(m):
+            global done, rr_pair_message
             if m.author == ctx.author and m.channel == ctx.channel and m.content.lower() == "done":
                 done = True
             elif m.author == ctx.author and m.channel == ctx.channel:
