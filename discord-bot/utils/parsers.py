@@ -20,6 +20,6 @@ async def parse_reaction_role_pair(text, ctx):
         emote = str(bytes(str(emote), "utf-8")[:4], "utf-8")[0]  # Stripping skintones and other modifiers
     else: 
         name = re.search(emote_re, emote)
-        emote = re.sub(name.group(1), r"_", emote)  # Wiping emote name to make it compact
+        emote = re.sub(name.group(1), "_", emote)  # Wiping emote name to make it compact
     role = await RoleConverter().convert(ctx, role)
     return emote, role

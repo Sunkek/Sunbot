@@ -109,6 +109,7 @@ class ReactionRoles(commands.Cog):
                 await add_reaction_role(
                     self.bot, ctx, rr_pair_message, message
                 )
+                await output.ok(rr_pair_message)
             except TimeoutError:
                 done = True
             except exception as e:
