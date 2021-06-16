@@ -109,11 +109,11 @@ class ReactionRoles(commands.Cog):
             try:
                 await self.bot.wait_for("message", timeout=30.0, check=check)
                 await add_reaction_role(
-                    self.bot, ctx, rr_pair_message, guild, channel, message
+                    self.bot, ctx, rr_pair_message, message
                 )
             except TimeoutError:
                 done = True
-                
+
         await output.done(ctx)
 
 def setup(bot):
