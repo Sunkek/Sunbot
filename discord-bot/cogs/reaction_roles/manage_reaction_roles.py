@@ -72,7 +72,7 @@ class ReactionRoles(commands.Cog):
                     rr_pair_message.content, ctx
                 )                
                 res = await reaction_roles.add_reaction_role(
-                    bot, ctx.author.id, emote, role.id, message.id,
+                    self.bot, ctx.author.id, emote, role.id, message.id,
                 )
                 print(await res.json()) # TODO work with res
 
