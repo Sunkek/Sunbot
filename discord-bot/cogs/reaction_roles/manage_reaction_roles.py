@@ -19,6 +19,10 @@ class ReactionRoles(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
+    def cog_check(self, ctx):
+        """This cog is for server admins only"""
+        return ctx.author.guild_permissions.administrator
+
     @commands.group(
         name="reactionroles", 
         aliases=["rr"],
