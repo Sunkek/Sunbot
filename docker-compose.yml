@@ -1,24 +1,36 @@
 version: '3'
 
 services:
-  sb-postgres:
+  postgres:
     image: postgres
     expose:
       - 5432
     env_file:
       - postgres.env
     volumes:
-      - sb-postgres:/var/lib/postgresql/data
+      - postgres:/var/lib/postgresql/data
+      
+  redis:
+    image: "redis:alpine"
+    expose:
+      - 6379
+    volumes:
+      - redis-data:/var/lib/redis
+      - redis-conf:/usr/local/etc/redis/redis.conf
+    env_file:
+      - redis.env
 
-  reaction-roles:
+  settings:
     build:
-      context: reaction-roles/
+      context: settings/
       dockerfile: Dockerfile
     expose:
-      - 5000
+      - 8001
     env_file:
-      - reaction-roles.env
-
+      - settings.env
+    depends_on:
+      - postgres
+      - redis
 
   discord-bot:
     build:
@@ -26,6 +38,10 @@ services:
       dockerfile: Dockerfile
     env_file:
       - discord-bot.env
+    depends_on:
+      - redis
   
 volumes:
-  sb-postgres:
+  postgres:
+  redis-data:
+  redis-conf:

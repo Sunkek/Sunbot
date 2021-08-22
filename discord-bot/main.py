@@ -27,7 +27,7 @@ bot = commands.Bot(
     command_prefix=commands.when_mentioned_or("sb ", "SB ", "Sb "), 
     сase_insensitive=True,
 )
-bot.remove_command("help")  # Remove the default help command because there will be a custom one
+# bot.remove_command("help")  # Remove the default help command because there will be a custom one
 bot.web_client = None
         
 @bot.event
@@ -38,8 +38,8 @@ async def on_ready():
             connector=aiohttp.TCPConnector( 
                 family=socket.AF_INET,  # https://github.com/aio-libs/aiohttp/issues/2522#issuecomment-354454800
                 ssl=False, 
-                ),
-            )
+            ),
+        )
     if not bot.cogs:
         print("Loading cogs")
         for cog in cogs:
@@ -47,7 +47,7 @@ async def on_ready():
                 if cog not in bot.cogs.values():
                     bot.load_extension(cog)
             except Exception as e:
-                print(f"Error on loading {cog}:\n{e}")
+                print(f"Error on loading {cog}: {e}")
         print("Cogs loaded")
     await bot.change_presence(activity=discord.Game(name=("sb ")))
     print(f"{bot.user} online")
